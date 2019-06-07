@@ -1,0 +1,8 @@
+{
+    "api_v1": {
+        "get_all_customers": "/api/v1/get_all_customers",
+        "get_config": "/api/v1/get_config",
+        "lottery_draw": "/api/v1/lottery_draw",
+        "reset": "/api/v1/reset"
+    }
+}

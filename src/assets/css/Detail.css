@@ -1,0 +1,33 @@
+.lottery-table th,
+.lottery-table td {
+    width: 10rem;
+    text-align: center;
+}
+.remove-lottery-btn:hover,
+.add-lottery-btn:hover {
+    cursor: pointer;
+    text-shadow: #ccc 1px 1px 0px;
+    user-select: none;
+}
+
+.remove-lottery-btn:hover {
+    background-color: #e02121;
+}
+.add-lottery-btn:hover {
+    background-color: #4bb44b;
+}
+
+.limit-input {
+    display: inline-block;
+    width: calc(100%-20rem);
+    max-width: 30rem;
+}
+.refresh-win-btn,
+.download-win-btn,
+.download-demo-btn {
+    display: inline-block;
+}
+.download-demo-btn button {
+    padding: 0;
+    height: 32px;
+}

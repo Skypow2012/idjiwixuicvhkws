@@ -1,0 +1,22 @@
+{
+    "r1": {
+        "per_num": 5,
+        "total_time": 2,
+        "reward": "4000免单金"
+    },
+    "r2": {
+        "per_num": 5,
+        "total_time": 4,
+        "reward": "3000免单金"
+    },
+    "r3": {
+        "per_num": 10,
+        "total_time": 4,
+        "reward": "2000免单金"
+    },
+    "r4": {
+        "per_num": 20,
+        "total_time": 5,
+        "reward": "1000免单金"
+    }
+}

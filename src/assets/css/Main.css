@@ -1,0 +1,20 @@
+.content {
+    min-width: 720px;
+}
+.active-card {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ccc;
+    cursor:pointer;
+}
+.add-card{
+    border: none;
+    cursor: pointer;
+}
+.add-card:hover {
+    text-shadow: #ccc 1px 1px 4px;
+}
+.active-card:hover {
+    box-shadow: #ccc 1px 1px 4px;
+}
