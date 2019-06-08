@@ -9,7 +9,20 @@
       <el-menu-item index="1">活动中心</el-menu-item>
     </el-menu>
     <el-row>
-      <el-card class="box-card clearfix active-card" style="padding:20px;margin:10px" v-for="(o,index) in arr" :key="o.index" :offset="index % 6 != 0 ? 1 : 0">
+      <el-card class="box-card clearfix active-card"
+                style="padding:20px;margin:10px" v-for="(o,index) in arr" :key="o.index">
+        <div slot="header" class="clearfix">
+          <span>{{o.project_name}}</span>
+          <el-button style="float: right; padding: 3px 0" type="text" v-on:click="toDetail(o.project_name)">详情</el-button>
+        </div>
+        <!-- <div v-for="o in 4" :key="o" class="text item">
+          {{'列表内容 ' + o }}
+        </div> -->
+      </el-card>
+      <!-- <el-card class="box-card clearfix active-card" style="padding:20px;margin:10px" v-for="(o,index) in arr"
+       :key="o.index"
+       v-on:click="toDetail(o.project_name)"
+        :offset="index % 6 != 0 ? 1 : 0"> -->
 
         <!-- <div
           v-for="(o, index) in arr"
@@ -19,13 +32,13 @@
           style="padding: 14px;"
           @click="toDetail(o.project_name)"
         > -->
-          <span>{{o.project_name}}</span>
-          <i @click="" class="el-icon el-icon-close closeBtn" style="float:right"></i>
+          <!-- <span>{{o.project_name}}</span> -->
+          <!-- <i @click="" class="el-icon el-icon-close closeBtn" style="float:right"></i> -->
         <!-- </div> -->
-      </el-card>
-      <div class="add-card" @click="addCard" style="padding: 14px;">
+      <!-- </el-card> -->
+      <el-card class="add-card" @click="addCard" style="padding: 14px;width:150px">
         <span>添加</span>
-      </div>
+      </el-card>
     </el-row>
   </div>
 </template>
@@ -116,4 +129,24 @@ export default {
 
 <style>
 @import "../assets/css/Main.css";
+  .text {
+    font-size: 14px;
+  }
+
+  .item {
+    margin-bottom: 18px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+
+  .box-card {
+    width: 150px;
+  }
 </style>

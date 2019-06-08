@@ -3,7 +3,7 @@
     <h1>{{projectName}}</h1>
     <div class="files-area">
       <div :class="fileDic.className" v-for="(fileDic, idx) in fileDics" :key="idx">
-        <span>{{fileDic.for}}</span>
+        <span style="font-family:Helvetica Neue">{{fileDic.for}}</span>
         <el-upload
           ref="upload"
           class="upload-item"
