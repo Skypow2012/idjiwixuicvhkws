@@ -54,7 +54,7 @@ export default {
     },
     action: {
       type: String,
-      default: '/api/admin_config/v1/upload_files'
+      default: '/admin_config/v1/upload_files'
     },
     deleteUrl: {
       type: String,

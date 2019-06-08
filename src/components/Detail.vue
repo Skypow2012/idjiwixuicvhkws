@@ -11,7 +11,7 @@
           :limit="limit"
           :headers="getHeaders(idx)"
           :on-change="(file, fileList)=>{handleChange(file, fileList, idx)}"
-          
+
           :file-list="fileList"
           :show-file-list="false"
           :auto-upload="true"
@@ -23,7 +23,7 @@
             v-model="fileDic.fileName"
             suffix-icon="el-icon-upload"
           ></el-input>
-          
+
           <div v-if="idx===2" class="download-demo-btn" @click="downloadDemo">
             <el-button>下载示例文件</el-button>
           </div>
@@ -101,8 +101,8 @@ const axios = require('axios')
 
 export default {
   watch: {
-    winLimit() {
-      console.log(this.winLimit);
+    winLimit () {
+      console.log(this.winLimit)
     }
   },
   data () {
@@ -153,7 +153,7 @@ export default {
       ],
       limit: 1,
       disabled: false,
-      action: '/api/admin_config/v1/upload_files',
+      action: (process.env.NODE_ENV === 'production' ? '' : '/api') + '/admin_config/v1/upload_files',
       headers: {
         Authorization: 'Bearer ' + window.localStorage.xlmAccessToken
       },
@@ -191,14 +191,14 @@ export default {
     this.fileDics[1].fileName = projectConfig.data.music || ''
     this.fileDics[2].fileName = projectConfig.data.customer_file || ''
     console.log(projectConfig.data.projects)
-    let lotteryConfig = projectConfig.data.projects[0].lottery_config;
+    let lotteryConfig = projectConfig.data.projects[0].lottery_config
     if (lotteryConfig) {
-      lotteryConfig = lotteryConfig.replace(/'/g, '"');
+      lotteryConfig = lotteryConfig.replace(/'/g, '"')
       lotteryConfig = JSON.parse(lotteryConfig)
     } else {
-      lotteryConfig = {};
+      lotteryConfig = {}
     }
-    this.lottery = lotteryConfig;
+    this.lottery = lotteryConfig
     // http://sunyibin.pythonanywhere.com/admin_config/v1/get_project_config/test
     console.log('createedddddddd', Object.keys(this.lottery).length)
     this.rIdx = Object.keys(this.lottery).length
@@ -213,31 +213,31 @@ export default {
     // download(res.data, 'peopleList.csv', 'csv')
   },
   methods: {
-    async downloadDemo() {
-      let res = await axios({
-        url: '/admin_config/v1/download_customer_template/xilingmen',
-        method: 'GET',
-        headers: {
-          ...this.headers
-        }
-      })
-      console.log(res)
-      window.download(res.data, 'persons.csv', 'csv');
-    },
-    async refreshWin() {
+    // async downloadDemo () {
+    //   let res = await axios({
+    //     url: '/admin_config/v1/download_customer_template/xilingmen',
+    //     method: 'GET',
+    //     headers: {
+    //       ...this.headers
+    //     }
+    //   })
+    //   console.log(res)
+    //   window.download(res.data, 'persons.csv', 'csv')
+    // },
+    async refreshWin () {
       this.$set(this, 'winLimit', '')
-      let res = await axios.get('/api/v1/download_lucky_customer/'+this.projectName + '?' + Math.random());
+      let res = await axios.get('/api/v1/download_lucky_customer/' + this.projectName + '?' + Math.random())
       if (res.data instanceof Object) {
-        this.$set(this, 'winList', []);
+        this.$set(this, 'winList', [])
       } else {
-        this.$set(this, 'winList', res.data.split('\n'));
+        this.$set(this, 'winList', res.data.split('\n'))
       }
-      console.log(this.winList);
+      console.log(this.winList)
     },
-    downloadWin() {
+    downloadWin () {
       window.download(this.winList.join('\r\n'), this.projectName + '中奖名单.csv', 'csv')
     },
-    downloadDemo() {
+    downloadDemo () {
       window.download('city,name,phone\r\n上海市,诺小测,18812345678', 'persons.csv', 'csv')
     },
     async uploadLottery () {
@@ -245,10 +245,10 @@ export default {
       this.rIdx = 0
       for (let i = 0; i < 100; i++) {
         if (this.lottery['r' + i]) {
-          let _lottery = (JSON.parse(JSON.stringify(this.lottery['r' + i])));
-          _lottery.total_time = Number(_lottery.total_time);
-          _lottery.per_num = Number(_lottery.per_num);
-          formatedLottery['r' + ++this.rIdx] = _lottery;
+          let _lottery = (JSON.parse(JSON.stringify(this.lottery['r' + i])))
+          _lottery.total_time = Number(_lottery.total_time)
+          _lottery.per_num = Number(_lottery.per_num)
+          formatedLottery['r' + ++this.rIdx] = _lottery
         }
       }
       let upRes = await axios({
@@ -286,7 +286,7 @@ export default {
     handleSuccess (idx) {
       console.log(idx, 'idx')
       if (this.fileDics[idx].fileName) {
-        this.$message(this.fileDics[idx].fileName+'上传成功')
+        this.$message(this.fileDics[idx].fileName + '上传成功')
       }
     },
     async addLottery () {
