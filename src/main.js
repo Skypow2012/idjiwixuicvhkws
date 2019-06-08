@@ -4,6 +4,7 @@ import Vue from 'vue'
 import ElementUI from 'element-ui'
 // import 'element-theme-chalk';
 import 'element-ui/lib/theme-chalk/index.css'
+import 'element-ui/lib/theme-chalk/icon.css'
 import App from './App'
 import router from './router'
 import axios from 'axios'
