@@ -19,7 +19,7 @@
         <div class="start-lottert" @click="toLottert">点击抽奖</div>
       </div>
     </div>
-    <div v-show="state == 'roll'" class="win-items-area">
+    <div v-show="state === 'roll' || state === 'rolling'" class="win-items-area">
       <!-- <p>奖品列表</p> -->
       <div v-for="(winItem, idx) in winItems" :key="idx" v-show="isGiftShow"><!-- || idx == nowWinItemIdx">-->
         <div
@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    <div v-show="state == 'roll'" class="ctrl-area">
+    <div v-show="state === 'roll' || state === 'rolling'" class="ctrl-area">
       <div id="people-list">
         <table v-show="trueList.length" cellpadding="0" cellspacing="0" style="white-apace:nowarp">
           <tr class="people-li linner">
@@ -54,14 +54,14 @@
         </p> -->
       </div>
       <div class="btn-area">
-        <div class="start-lottert" @click="startLottert">开始抽奖</div>
-        <div class="stop-lottert" @click="stopLottert">暂停抽奖</div>
+        <div class="start-lottert" @click="startLottert" :style="canStart ? '':'opacity:.5;cursor:not-allowed'">开始抽奖</div>
+        <div class="stop-lottert" @click="stopLottert" :style="canStop ? '':'opacity:.5;cursor:not-allowed'">暂停抽奖</div>
       </div>
     </div>
     <div v-show="state == 'win'" class="win-shadow-area" @click="back2Roll"></div>
     <div v-show="state == 'win'" class="back-2-roll-btn" @click="back2Roll"></div>
     <div v-show="state == 'win'" class="win-area" @click="back2Roll">
-        <table cellpadding="0" cellspacing="0" @click="noBack">
+        <table cellpadding="0" cellspacing="0">
           <tr class="people-li" :style="'font-size:'+ 7/Math.sqrt(trueList.length<5?5:trueList.length) + 'rem'" v-for="(item, index) in trueList" :key="index">
             <td class="people-idx">{{index + 1}}、</td>
             <td class="people-area">{{item.area}}</td>
@@ -114,12 +114,21 @@ function exitFullScreen () {
 const axios = require('axios')
 const api = require('../assets/json/api.json')
 let interV = {}
-let isRequest = false
 export default {
   name: 'LottertPage',
+  computed: {
+    canStart() {
+      console.log('canstart', this.state);
+      return this.state === 'roll';
+    },
+    canStop() {
+      return this.state === 'rolling' && !this.isRequest;
+    }
+  },
   data () {
     return {
-      bgStyle: "background-image:url('http://sunyibin.pythonanywhere.com/admin_config/v1/download_project_file/" + projectName + "/bg_pic')",
+      isRequest: false,
+      bgStyle: "background-image:url('http://sunyibin.pythonanywhere.com/admin_config/v1/download_project_file/" + projectName + "/bg_pic?" + Math.random() + ")",
       isBgWav: true,
       audioSrc: 'http://sunyibin.pythonanywhere.com/admin_config/v1/download_project_file/' + projectName + '/bg_music?' + Math.random(), // './wav/波斯进行曲.m4a',
       // audioSrc: './wav/波斯进行曲.m4a',
@@ -185,7 +194,7 @@ export default {
     },
     rocketGo () {
       if (this.isBgWav) {
-        document.getElementById('rocket-wav').play()
+        window.document.getElementById('rocket-wav').play()
       }
     },
     toLottert () {
@@ -237,6 +246,9 @@ export default {
     },
     // 开始循环运行抽奖函数
     startLottert () {
+      if (!this.canStart) {
+        return;
+      }
       let that = this
       window.clearInterval(interV)
       if (that.nowWinItemIdx) {
@@ -245,8 +257,10 @@ export default {
         console.log(winItemInfo.total_time)
         if (winItemInfo._total_time == undefined) {
           winItemInfo._total_time = winItemInfo.total_time - 1
+          that.state = 'rolling'
         } else if (winItemInfo._total_time > 0) {
           winItemInfo._total_time -= 1
+          that.state = 'rolling'
         } else {
           window.clearInterval(interV)
           alert('该奖品已抽完')
@@ -270,13 +284,18 @@ export default {
     },
     // 停止抽奖循环
     async stopLottert () {
-      if (isRequest) {
-        return
+      console.log(!this.canStop, this.isRequest, 'can', 'req')
+      if (!this.canStop) {
+        return;
       }
+      if (this.isRequest) {
+        return;
+      }
+      console.log(!this.canStop, this.isRequest, 'can', 'req', 'in')
       let that = this
       let winResult = {}
       // try {
-      isRequest = true
+      this.isRequest = true
       if (isOnline) {
         winResult = (await axios({
           url: api.api_v1.lottery_draw + '/' + that.nowWinItemIdx.replace('r', ''),
@@ -285,7 +304,7 @@ export default {
             project: encodeURIComponent(projectName)
           }
         })).data
-        isRequest = false
+        this.isRequest = false
       } else {
         let rNum = that.nowWinItemIdx
         console.log(that.winItems[rNum], rNum)
@@ -302,7 +321,7 @@ export default {
         }
         winResult.remain = localWinPeople[rNum].length
         winResult.msg = 'success'
-        isRequest = false
+        this.isRequest = false
       }
       // } catch(err) {
       //   isRequest = false;
@@ -345,6 +364,7 @@ export default {
         that.trueList = []
         console.log(winResult.msg)
         alert(winResult.msg)
+        that.state = 'roll'
         let winItemInfo = that.winItems[that.nowWinItemIdx]
         winItemInfo._total_time = 0
       }
@@ -354,9 +374,6 @@ export default {
       let that = this
       that.state = 'roll'
       that.trueList = []
-    },
-    noBack (e) {
-      e.stopLottert()
     },
     fullScreen () {
       if (this.isFull) {

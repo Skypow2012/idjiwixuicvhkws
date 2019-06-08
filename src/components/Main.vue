@@ -15,9 +15,9 @@
           <span>{{o.project_name}}</span>
           <el-button style="float: right; padding: 3px 0" type="text" v-on:click="toDetail(o.project_name)">详情</el-button>
         </div>
-        <!-- <div v-for="o in 4" :key="o" class="text item">
-          {{'列表内容 ' + o }}
-        </div> -->
+        <!-- <div slot="body" class="text item"> -->
+          <span>{{o.comments}}</span>
+        <!-- </div> -->
       </el-card>
       <!-- <el-card class="box-card clearfix active-card" style="padding:20px;margin:10px" v-for="(o,index) in arr"
        :key="o.index"
