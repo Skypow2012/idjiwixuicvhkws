@@ -9,17 +9,20 @@
       <el-menu-item index="1">活动中心</el-menu-item>
     </el-menu>
     <el-row>
-      <div
-        v-for="(o, index) in arr"
-        :key="o.index"
-        :offset="index % 6 != 0 ? 1 : 0"
-        class="active-card"
-        style="padding: 14px;"
-        @click="toDetail(o.project_name)"
-      >
-        <span>{{o.project_name}}</span>
-      </div>
+      <el-card class="box-card clearfix active-card" style="padding:20px;margin:10px" v-for="(o,index) in arr" :key="o.index" :offset="index % 6 != 0 ? 1 : 0">
 
+        <!-- <div
+          v-for="(o, index) in arr"
+          :key="o.index"
+          :offset="index % 6 != 0 ? 1 : 0"
+          class="active-card"
+          style="padding: 14px;"
+          @click="toDetail(o.project_name)"
+        > -->
+          <span>{{o.project_name}}</span>
+          <i @click="" class="el-icon el-icon-close closeBtn" style="float:right"></i>
+        <!-- </div> -->
+      </el-card>
       <div class="add-card" @click="addCard" style="padding: 14px;">
         <span>添加</span>
       </div>
