@@ -1,20 +1,51 @@
 .content {
     min-width: 720px;
 }
+.add-card,
 .active-card {
     display: inline-block;
-    width: 100px;
+    width: 150px;
     height: 100px;
+    padding: 20px;
+    margin: 10px;
     border: 1px solid #ccc;
     cursor:pointer;
 }
 .add-card{
+    position: relative;
     border: none;
     cursor: pointer;
 }
+.active-card .el-card__header {
+    padding: 9px 10px;
+}
+.active-card:hover,
 .add-card:hover {
-    text-shadow: #ccc 1px 1px 4px;
+    border: 1px solid #4bb44b;
+    color: #4bb44b;
+    /* text-shadow: #ccc 1px 1px 4px; */
+}
+.add-card:hover .iconfont {
+    color: #4bb44b;
 }
 .active-card:hover {
     box-shadow: #ccc 1px 1px 4px;
+}
+.add-card .iconfont {
+    display: block;
+    font-size: 57px;
+    position: absolute;
+    color: #ccc;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+.add-card .el-card__body {
+    position: relative;
+    padding: 0;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
 }
