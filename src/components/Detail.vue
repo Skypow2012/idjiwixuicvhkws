@@ -59,7 +59,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td class="add-lottery-btn" @click="addLottery(idx)">+</td>
+            <td class="add-lottery-btn" @click="addLottery">+</td>
           </tr>
         </table>
       </div></div>

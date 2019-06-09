@@ -384,6 +384,7 @@ export default {
       this.isFull = !this.isFull
     },
     async reset () {
+      let that = this;
       if (confirm('重置之前的抽奖么?')) {
         if (isOnline) {
           let resetResult = (await axios({
