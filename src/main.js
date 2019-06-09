@@ -6,6 +6,12 @@ import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+// 引入插件
+import VueSweetalert2 from './plugins/vue-sweetalert2'
+
+// 使用插件
+Vue.use(VueSweetalert2)
+
 let done = 0
 let start = 0
 

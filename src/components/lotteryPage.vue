@@ -156,7 +156,7 @@ export default {
       if (configResult.msg == 'success') {
         that.winItems = configResult.data
       } else {
-        alert('获取奖品信息失败')
+        that.$swal('获取奖品信息失败')
       }
       let customersResult = (await axios.get(api.api_v1.get_all_customers + '/' + encodeURIComponent(projectName))).data
       if (customersResult) {
@@ -170,7 +170,7 @@ export default {
         })
         that.peopleList = _cutomersResult
       } else {
-        alert('获取客户名单失败')
+        that.$swal('获取客户名单失败')
       }
     } else {
       that.peopleList = that.peopleList.map((ele) => {
@@ -228,7 +228,7 @@ export default {
         winPeopleCount = winItemInfo.per_num
       } else {
         window.clearInterval(interV)
-        alert('未选择奖品')
+        that.$swal('未选择奖品')
         return
       }
       let maxI = len < winPeopleCount ? len : winPeopleCount
@@ -263,12 +263,12 @@ export default {
           that.state = 'rolling'
         } else {
           window.clearInterval(interV)
-          alert('该奖品已抽完')
+          that.$swal('该奖品已抽完')
           return
         }
       } else {
         window.clearInterval(interV)
-        alert('未选择奖品')
+        that.$swal('未选择奖品')
         return
       }
       interV = window.setInterval(() => {
@@ -327,7 +327,7 @@ export default {
       //   isRequest = false;
       //   console.log(err, '网络请求出错');
       //   that.clear();
-      //   alert('网络请求出错')
+      //   that.$swal('网络请求出错')
       //   return;
       // }
       console.log(winResult)
@@ -363,7 +363,7 @@ export default {
         console.log('抽奖已经停止', 'interV:', interV)
         that.trueList = []
         console.log(winResult.msg)
-        alert(winResult.msg)
+        that.$swal(winResult.msg)
         that.state = 'roll'
         let winItemInfo = that.winItems[that.nowWinItemIdx]
         winItemInfo._total_time = 0
@@ -394,10 +394,10 @@ export default {
             }
           })).data// (await axios.get(api.api_v1.reset)).data || {};
           if (resetResult.msg.indexOf('reset success') > -1) {
-            alert('重置成功')
+            that.$swal('重置成功')
             window.location.reload()
           } else {
-            alert('重置失败' + resetResult.msg || '')
+            that.$swal('重置失败' + resetResult.msg || '')
           }
         } else {
           window.location.reload()
