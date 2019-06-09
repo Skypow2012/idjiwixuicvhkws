@@ -12,6 +12,7 @@
     margin: 10px;
     border: 1px solid #ccc;
     cursor:pointer;
+    vertical-align: top;
 }
 .add-card{
     position: relative;

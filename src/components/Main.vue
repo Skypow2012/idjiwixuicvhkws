@@ -10,7 +10,7 @@
     </el-menu>
     <el-row>
       <el-card class="box-card clearfix active-card"
-                style="margin:10px" v-for="(o,index) in arr" :key="o.index"
+                style="margin:10px" v-for="o in arr" :key="o.index"
                 @click.native="toDetail(o.project_name)">
         <div slot="header" class="clearfix">
           <span>{{o.project_name}}</span>
