@@ -179,10 +179,40 @@ export default {
   },
   async created() {
     let that = this;
+    let Swal = this.$swal;
+    let timerInterval;
     if (isOnline) {
+      Swal({
+        title: '开始加载数据',
+        html: '<strong></strong>',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: true,
+        onBeforeOpen: () => {
+          Swal.showLoading()
+        },
+        onClose: (e) => {
+          console.log(e);
+          clearInterval(timerInterval)
+        }
+      })
       let configResult = (await axios({
         url: api.api_v1.get_config + "/" + encodeURIComponent(projectName),
         method: "GET",
+        onDownloadProgress: function (progressEvent) {
+          // Do whatever you want with the native progress event
+          console.log('progressEvent1', progressEvent);
+          let stepName = '下载活动配置';
+          if (progressEvent.lengthComputable) {
+            Swal.getContent().querySelector('strong')
+            .textContent = stepName + ':' + ((progressEvent.loaded * 100 / progressEvent.total) |0) + '%'
+          } else {
+            let _process = progressEvent.loaded / 70000 * 100;
+            _process = _process > 99 ? 99 : (_process|0);
+            Swal.getContent().querySelector('strong')
+            .textContent = stepName + ':' + _process + '%';
+          }
+        },
         headers: {
           project: encodeURIComponent(projectName)
         }
@@ -192,9 +222,27 @@ export default {
       } else {
         that.$swal("获取奖品信息失败");
       }
-      let customersResult = (await axios.get(
-        api.api_v1.get_all_customers + "/" + encodeURIComponent(projectName)
+      let customersResult = (await axios(
+        {
+          url: api.api_v1.get_all_customers + "/" + encodeURIComponent(projectName),
+          method: "GET",
+          onDownloadProgress: function (progressEvent) {
+            // Do whatever you want with the native progress event
+            console.log('progressEvent2', progressEvent);
+            let stepName = '下载用户名单';
+            if (progressEvent.lengthComputable) {
+              Swal.getContent().querySelector('strong')
+              .textContent = stepName + ':' + ((progressEvent.loaded * 100 / progressEvent.total) |0) + '%'
+            } else {
+              let _process = progressEvent.loaded / 300000 * 100;
+              _process = _process > 99 ? 99 : (_process|0);
+              Swal.getContent().querySelector('strong')
+              .textContent = stepName + ':' + _process + '%';
+            }
+          }
+        }
       )).data;
+      Swal.close();
       if (customersResult) {
         let _cutomersResult = customersResult.map(ele => {
           let tel = ele[2].toString();
