@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Main from '@/components/Main'
 import Login from '@/components/Login'
 import Detail from '@/components/Detail'
-import demo from '@/components/demo'
 import lotteryPage from '@/components/lotteryPage'
 
 Vue.use(Router)
@@ -29,11 +28,6 @@ export default new Router({
       path: '/detail',
       name: 'Detail',
       component: Detail
-    },
-    {
-      path: '/demo',
-      name: 'demo',
-      component: demo
     }
   ]
 })
