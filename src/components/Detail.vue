@@ -1,97 +1,100 @@
 <template>
-  <div>
-    <h1>{{projectName}}</h1>
-    <div class="files-area">
-      <div :class="fileDic.className" v-for="(fileDic, idx) in fileDics" :key="idx">
-        <span style="font-family:Helvetica Neue">{{fileDic.for}}</span>
-        <el-upload
-          ref="upload"
-          class="upload-item"
-          :action="action"
-          :limit="limit"
-          :headers="getHeaders(idx)"
-          :on-change="(file, fileList)=>{handleChange(file, fileList, idx)}"
+  <div class='content'>
+    <div class="title-bar">
+      <span>{{projectName}}</span>
+      <el-button style="float:right;margin:0 10px" @click.native="backToMain">返回主页</el-button>
+      <el-button style="float:right;margin:0 10px" @click.native="toLotteryPage">去活动现场</el-button>
+    </div>
+    <div class="box">
+      <div>
+      <div class="files-area">
+        <div :class="fileDic.className" v-for="(fileDic, idx) in fileDics" :key="idx">
+          <span style="font-family:Helvetica Neue" class="item-title">{{fileDic.for}}：</span>
+          <el-upload
+            ref="upload"
+            class="upload-item"
+            :action="action"
+            :limit="limit"
+            :headers="getHeaders(idx)"
+            :on-change="(file, fileList)=>{handleChange(file, fileList, idx)}"
 
-          :file-list="fileList"
-          :show-file-list="false"
-          :auto-upload="true"
-        >
-          <el-input
-            slot="trigger"
-            size="small"
-            placeholder="请选择文件"
-            v-model="fileDic.fileName"
-            suffix-icon="el-icon-upload"
-          ></el-input>
-
-          <div v-if="idx===2" class="download-demo-btn" @click="downloadDemo">
-            <el-button>下载示例文件</el-button>
-          </div>
-          <!-- <el-button size="small"  type="primary" @click="submitUpload" :disabled="disabled">上传数据</el-button> -->
-          <!-- <el-button
-            type="primary"
-            style
-            :disabled="disabled"
-            size="small"
-            class="uploadBtn"
-            @click="submitUpload(idx)"
+            :file-list="fileList"
+            :show-file-list="false"
+            :auto-upload="true"
           >
-            <span v-if="!disabled" class="refresh">
-              <span>上传数据</span>
-            </span>
-            <span class="syncLoading" v-else>
-              上传中...
-              <i class="el-icon-loading el-icon--right"></i>
-            </span>
-          </el-button> -->
-        </el-upload>
+            <el-input
+              slot="trigger"
+              size="small"
+              :placeholder="idx===2?'请用persons.csv':'请用英文名的文件'"
+              v-model="fileDic.fileName"
+              suffix-icon="el-icon-upload"
+            ></el-input>
+
+            <div v-if="idx===2" class="download-demo-btn" @click="downloadDemo">
+              <el-button>下载示例文件</el-button>
+            </div>
+          </el-upload>
+        </div>
       </div>
-    </div>
-    <div class="set-lottery-draw">
-      <span>活动配置</span>
-      <table class="lottery-table">
-        <tr>
-          <th>奖品</th>
-          <th>轮次</th>
-          <th>人/次</th>
-        </tr>
-        <tr v-for="(config, idx) in lottery" :key="idx + config.reward">
-          <!-- <td v-for="(_config, _idx) in config" :key="_idx">{{_config}}<td> -->
-          <td>{{config.reward}}</td>
-          <td>{{config.total_time}}</td>
-          <td>{{config.per_num}}</td>
-          <td class="remove-lottery-btn" @click="removeLottery(idx)">x</td>
-        </tr>
-        <tr>
-          <!-- <td v-for="(_config, _idx) in config" :key="_idx">{{_config}}<td> -->
-          <td></td>
-          <td></td>
-          <td></td>
-          <td class="add-lottery-btn" @click="addLottery(idx)">+</td>
-        </tr>
-      </table>
-    </div>
-    <div class="win-area">
-      <span>中奖名单</span>
-      <br/>
-      <div class="limit-input">
-        <el-input v-model="winLimit" placeholder="输入筛选内容" clearable></el-input>
+      <div class="set-lottery-draw">
+        <span class="item-title">活动配置</span>
+        <table class="lottery-table" cellpadding="0" cellspacing="0" style="white-apace:nowarp">
+          <tr>
+            <th>奖品序号</th>
+            <th>奖品</th>
+            <th>轮次</th>
+            <th>人/次</th>
+          </tr>
+          <tr v-for="(config, idx) in lottery" :key="idx + config.reward">
+            <!-- <td v-for="(_config, _idx) in config" :key="_idx">{{_config}}<td> -->
+            <td>{{idx.replace('r','')}}</td>
+            <td>{{config.reward}}</td>
+            <td>{{config.total_time}}</td>
+            <td>{{config.per_num}}</td>
+            <td class="remove-lottery-btn" @click="removeLottery(idx)">x</td>
+          </tr>
+          <tr>
+            <!-- <td v-for="(_config, _idx) in config" :key="_idx">{{_config}}<td> -->
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="add-lottery-btn" @click="addLottery(idx)">+</td>
+          </tr>
+        </table>
+      </div></div>
+      <div class="win-area">
+        <span class="item-title">中奖名单</span>
+        <br/>
+        <div class="limit-input">
+          <el-input v-model="winLimit" placeholder="输入筛选内容" clearable></el-input>
+        </div>
+        <div class="refresh-win-btn" @click="refreshWin">
+          <el-button>刷新</el-button>
+        </div>
+        <div class="download-win-btn" @click="downloadWin">
+          <el-button>下载</el-button>
+        </div>
+        <br/>
+        <table class="win-list" cellpadding="0" cellspacing="0" style="white-apace:nowarp">
+          <tr>
+            <th>奖品序号</th>
+            <th>城市</th>
+            <th>姓名</th>
+            <th>电话</th>
+          </tr>
+          <tr v-for="(winner, index) in winList" :key="index + winner" v-if="winner.indexOf(winLimit)>-1 && index>0">
+            <td>{{winner.split(',')[0]}}</td>
+            <td>{{winner.split(',')[1]}}</td>
+            <td>{{winner.split(',')[2]}}</td>
+            <td>{{winner.split(',')[3]}}</td>
+          </tr>
+        </table>
       </div>
-      <div class="refresh-win-btn" @click="refreshWin">
-        <el-button>刷新</el-button>
+      <div style="display:none">
+        <a href id="a">click here to download your file</a>
+        <button onclick="download('file text', 'myfilename.txt', 'text/plain')">Create file</button>
       </div>
-      <div class="download-win-btn" @click="downloadWin">
-        <el-button>下载</el-button>
-      </div>
-      <table class="win-list">
-        <tr v-for="(winner, index) in winList" :key="index + winner">
-          <td v-if="winner.indexOf(winLimit)>-1">{{winner}}</td>
-        </tr>
-      </table>
-    </div>
-    <div style="display:none">
-      <a href id="a">click here to download your file</a>
-      <button onclick="download('file text', 'myfilename.txt', 'text/plain')">Create file</button>
     </div>
   </div>
 </template>
@@ -210,20 +213,14 @@ export default {
       a.download = name
       a.dispatchEvent(new MouseEvent('click', {'bubbles': false, 'cancelable': true}))
     }
-    // download(res.data, 'peopleList.csv', 'csv')
   },
   methods: {
-    // async downloadDemo () {
-    //   let res = await axios({
-    //     url: '/admin_config/v1/download_customer_template/xilingmen',
-    //     method: 'GET',
-    //     headers: {
-    //       ...this.headers
-    //     }
-    //   })
-    //   console.log(res)
-    //   window.download(res.data, 'persons.csv', 'csv')
-    // },
+    backToMain() {
+      this.$router.push({ path: '/' })
+    },
+    toLotteryPage() {
+      window.location.href = '/?projectName=' + this.projectName + '#/lotteryPage';
+    },
     async refreshWin () {
       this.$set(this, 'winLimit', '')
       let res = await axios.get('/api/v1/download_lucky_customer/' + this.projectName + '?' + Math.random())
@@ -238,7 +235,7 @@ export default {
       window.download(this.winList.join('\r\n'), this.projectName + '中奖名单.csv', 'csv')
     },
     downloadDemo () {
-      window.download('city,name,phone\r\n上海市,诺小测,18812345678', 'persons.csv', 'csv')
+      window.download('city,name,phone\r\n上海市,诺小测,18812345678\r\n杭州市,诺二测,1715345678\r\n湖州市,诺三测,18312342678\r\n绍兴市,诺四测,18011145678\r\n上海市,诺五测,18812345078\r\n南昌市,诺大测,19916656768', 'persons.csv', 'csv')
     },
     async uploadLottery () {
       let formatedLottery = {}
@@ -344,6 +341,6 @@ export default {
 }
 </script>
 
-<style>
+<style scope>
 @import "../assets/css/Detail.css";
 </style>

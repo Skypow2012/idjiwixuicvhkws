@@ -1,7 +1,39 @@
+.title-bar {
+    height: 60px;
+    background-color: #ffffff;
+}
+.title-bar>span {
+    margin-left: 10px;
+    font-size: 35px;
+    font-weight: bold;
+}
+.title-bar>button {
+    height: 100%;
+    border: 0;
+}
+.box {
+    width: 100%;
+    min-height: 100%;
+    padding: 10px;
+    background-color: #eeeeee;
+}
+
 .lottery-table th,
-.lottery-table td {
+.lottery-table td,
+.win-list th,
+.win-list td{
     width: 10rem;
     text-align: center;
+}
+
+.lottery-table th,
+.win-list th {
+    border-bottom: 1px solid #000;
+}
+.win-list {
+    max-height: 250px;
+    overflow: auto;
+    display: inline-block;
 }
 .remove-lottery-btn:hover,
 .add-lottery-btn:hover {
@@ -30,4 +62,23 @@
 .download-demo-btn button {
     padding: 0;
     height: 32px;
+}
+
+.upload-item {
+    display: inline-block;
+}
+.item-title {
+    display: inline-block;
+    font-size: 2rem;
+    height: 2rem;
+    min-width: 10rem;
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+}
+
+.files-area,
+.set-lottery-draw {
+    display: inline-block;
+    vertical-align: top;
+    width: calc(50% - 10px);
 }
