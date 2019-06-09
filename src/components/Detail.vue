@@ -1,12 +1,11 @@
 <template>
-  <div class='content'>
+  <div class='content detail-box'>
     <div class="title-bar">
       <span>{{projectName}}</span>
       <el-button style="float:right;margin:0 10px" @click.native="backToMain">返回主页</el-button>
       <el-button style="float:right;margin:0 10px" @click.native="toLotteryPage">去活动现场</el-button>
     </div>
-    <div class="box">
-      <div>
+    <div>
       <div class="files-area">
         <div :class="fileDic.className" v-for="(fileDic, idx) in fileDics" :key="idx">
           <span style="font-family:Helvetica Neue" class="item-title">{{fileDic.for}}：</span>
@@ -62,7 +61,7 @@
             <td class="add-lottery-btn" @click="addLottery">+</td>
           </tr>
         </table>
-      </div></div>
+      </div>
       <div class="win-area">
         <span class="item-title">中奖名单</span>
         <br/>
@@ -114,28 +113,6 @@ export default {
       winLimit: '',
       winList: [],
       lottery: {},
-      // {
-      //   'r1': {
-      //     'per_num': 5,
-      //     'total_time': 2,
-      //     'reward': '4000免单金'
-      //   },
-      //   'r2': {
-      //     'per_num': 5,
-      //     'total_time': 4,
-      //     'reward': '3000免单金'
-      //   },
-      //   'r3': {
-      //     'per_num': 10,
-      //     'total_time': 4,
-      //     'reward': '2000免单金'
-      //   },
-      //   'r4': {
-      //     'per_num': 20,
-      //     'total_time': 5,
-      //     'reward': '1000免单金'
-      //   }
-      // },
       fileDics: [
         {
           for: '背景图',

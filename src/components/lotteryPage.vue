@@ -518,6 +518,9 @@ body {
   font-family: "黑体";
 }
 .out-btn-area {
+  height: 100%;
+  width: 50px;
+  background-color: #000;
   opacity: 0.5;
   /* position: fixed;
   background-color: rgba(255,255,255,.5);

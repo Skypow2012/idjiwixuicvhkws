@@ -75,10 +75,3 @@
     margin-top: 1rem;
     margin-bottom: .5rem;
 }
-
-.files-area,
-.set-lottery-draw {
-    display: inline-block;
-    vertical-align: top;
-    width: calc(50% - 10px);
-}
