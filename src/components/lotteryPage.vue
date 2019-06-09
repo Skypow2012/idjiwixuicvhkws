@@ -1,15 +1,19 @@
 <template>
   <div class="content" :style="bgStyle">
-    <audio id="bg-wav" :src="audioSrc" loop autoplay>
-      Your browser does not support the audio element.
-    </audio>
-    <audio id="rocket-wav" :src="rocketSrc">
-      Your browser does not support the audio element.
-    </audio>
+    <audio
+      id="bg-wav"
+      :src="audioSrc"
+      loop
+      autoplay
+    >Your browser does not support the audio element.</audio>
+    <audio id="rocket-wav" :src="rocketSrc">Your browser does not support the audio element.</audio>
     <!-- <embed src="./wav/-咖哩鱼蛋.mp3" autostart="1" loop=-1 type="application/x-mplayer2" width="400" height="64"></embed> -->
     <div class="out-btn-area">
       <div class="gift-btn-area" @click="giftShow"></div>
-      <div :class="isFull?'full-screen-btn-area small-screen':'full-screen-btn-area'" @click="fullScreen"></div>
+      <div
+        :class="isFull?'full-screen-btn-area small-screen':'full-screen-btn-area'"
+        @click="fullScreen"
+      ></div>
       <div class="reset-btn-area" @click="reset"></div>
       <div :class="isBgWav?'bg-wav-area':'bg-wav-area wav-stop'" @click="bgGo"></div>
     </div>
@@ -21,7 +25,8 @@
     </div>
     <div v-show="state === 'roll' || state === 'rolling'" class="win-items-area">
       <!-- <p>奖品列表</p> -->
-      <div v-for="(winItem, idx) in winItems" :key="idx" v-show="isGiftShow"><!-- || idx == nowWinItemIdx">-->
+      <div v-for="(winItem, idx) in winItems" :key="idx" v-show="isGiftShow">
+        <!-- || idx == nowWinItemIdx">-->
         <div
           :class="idx == nowWinItemIdx ? 'win-item selected-win-item':'win-item'"
           @click="changeWinItem(idx)"
@@ -39,7 +44,12 @@
             <td class="people-name">名字</td>
             <td class="people-tel">电话</td>
           </tr>
-          <tr class="people-li" :style="'font-size:'+ 8/Math.sqrt(trueList.length<4?5:(trueList.length+1)) + 'rem'" v-for="(item, index) in trueList" :key="index">
+          <tr
+            class="people-li"
+            :style="'font-size:'+ 8/Math.sqrt(trueList.length<4?5:(trueList.length+1)) + 'rem'"
+            v-for="(item, index) in trueList"
+            :key="index"
+          >
             <td class="people-idx">{{index + 1}}</td>
             <td class="people-area">{{item.area}}</td>
             <td class="people-name">{{item.name}}</td>
@@ -51,89 +61,113 @@
           <span class="people-area">{{item.area}}</span>
           <span class="people-name">{{item.name}}</span>
           <span class="people-tel">{{item.tel}}</span>
-        </p> -->
+        </p>-->
       </div>
       <div class="btn-area">
-        <div class="start-lottert" @click="startLottert" :style="canStart ? '':'opacity:.5;cursor:not-allowed'">开始抽奖</div>
-        <div class="stop-lottert" @click="stopLottert" :style="canStop ? '':'opacity:.5;cursor:not-allowed'">暂停抽奖</div>
+        <div
+          class="start-lottert"
+          @click="startLottert"
+          :style="canStart ? '':'opacity:.5;cursor:not-allowed'"
+        >开始抽奖</div>
+        <div
+          class="stop-lottert"
+          @click="stopLottert"
+          :style="canStop ? '':'opacity:.5;cursor:not-allowed'"
+        >暂停抽奖</div>
       </div>
     </div>
     <div v-show="state == 'win'" class="win-shadow-area" @click="back2Roll"></div>
     <div v-show="state == 'win'" class="back-2-roll-btn" @click="back2Roll"></div>
     <div v-show="state == 'win'" class="win-area" @click="back2Roll">
-        <table cellpadding="0" cellspacing="0">
-          <tr class="people-li" :style="'font-size:'+ 7/Math.sqrt(trueList.length<5?5:trueList.length) + 'rem'" v-for="(item, index) in trueList" :key="index">
-            <td class="people-idx">{{index + 1}}、</td>
-            <td class="people-area">{{item.area}}</td>
-            <td class="people-name">{{item.name}}</td>
-            <td class="people-tel">{{item.tel}}</td>
-          </tr>
-        </table>
+      <table cellpadding="0" cellspacing="0">
+        <tr
+          class="people-li"
+          :style="'font-size:'+ 7/Math.sqrt(trueList.length<5?5:trueList.length) + 'rem'"
+          v-for="(item, index) in trueList"
+          :key="index"
+        >
+          <td class="people-idx">{{index + 1}}、</td>
+          <td class="people-area">{{item.area}}</td>
+          <td class="people-name">{{item.name}}</td>
+          <td class="people-tel">{{item.tel}}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>
 
 <script>
-import { clearInterval, setTimeout } from 'timers'
-import { request } from 'http'
-const peopleList = require('../assets/json/peopleList.json')
-const winItems = require('../assets/json/winItems.json')
-const localWinPeople = require('../assets/json/localWinPeople.json')
-const isOnline = true
-let projectName = ''
+import { clearInterval, setTimeout } from "timers";
+import { request } from "http";
+const peopleList = require("../assets/json/peopleList.json");
+const winItems = require("../assets/json/winItems.json");
+const localWinPeople = require("../assets/json/localWinPeople.json");
+const isOnline = true;
+let projectName = "";
 try {
-  projectName = decodeURIComponent(window.location.href.match(/[\?\&]projectName=(.*?)[\&\#$]/)[1])
-  console.log(projectName)
+  projectName = decodeURIComponent(
+    window.location.href.match(/[\?\&]projectName=(.*?)[\&\#$]/)[1]
+  );
+  console.log(projectName);
 } catch (err) {
-  console.log(err)
+  console.log(err);
 }
 
 // 进入全屏
-function enterFullScreen () {
-  var de = document.documentElement
+function enterFullScreen() {
+  var de = document.documentElement;
   if (de.requestFullscreen) {
-    de.requestFullscreen()
+    de.requestFullscreen();
   } else if (de.mozRequestFullScreen) {
-    de.mozRequestFullScreen()
+    de.mozRequestFullScreen();
   } else if (de.webkitRequestFullScreen) {
-    de.webkitRequestFullScreen()
+    de.webkitRequestFullScreen();
   }
 }
 // 退出全屏
-function exitFullScreen () {
-  var de = document
+function exitFullScreen() {
+  var de = document;
   if (de.exitFullscreen) {
-    de.exitFullscreen()
+    de.exitFullscreen();
   } else if (de.mozCancelFullScreen) {
-    de.mozCancelFullScreen()
+    de.mozCancelFullScreen();
   } else if (de.webkitCancelFullScreen) {
-    de.webkitCancelFullScreen()
+    de.webkitCancelFullScreen();
   }
 }
 
-const axios = require('axios')
-const api = require('../assets/json/api.json')
-let interV = {}
+const axios = require("axios");
+const api = require("../assets/json/api.json");
+let interV = {};
 export default {
-  name: 'LottertPage',
+  name: "LottertPage",
   computed: {
     canStart() {
-      console.log('canstart', this.state);
-      return this.state === 'roll';
+      console.log("canstart", this.state);
+      return this.state === "roll";
     },
     canStop() {
-      return this.state === 'rolling' && !this.isRequest;
+      return this.state === "rolling" && !this.isRequest;
     }
   },
-  data () {
+  data() {
     return {
       isRequest: false,
-      bgStyle: "background-image:url('http://sunyibin.pythonanywhere.com/admin_config/v1/download_project_file/" + projectName + "/bg_pic?" + Math.random() + ")",
+      bgStyle:
+        "background-image:url('http://sunyibin.pythonanywhere.com/admin_config/v1/download_project_file/" +
+        projectName +
+        "/bg_pic?" +
+        Math.random() +
+        ")",
       isBgWav: true,
-      audioSrc: 'http://sunyibin.pythonanywhere.com/admin_config/v1/download_project_file/' + projectName + '/bg_music?' + Math.random(), // './wav/波斯进行曲.m4a',
+      audioSrc:
+        "http://sunyibin.pythonanywhere.com/admin_config/v1/download_project_file/" +
+        projectName +
+        "/bg_music?" +
+        Math.random(), // './wav/波斯进行曲.m4a',
       // audioSrc: './wav/波斯进行曲.m4a',
-      rocketSrc: './wav/shake_gameover.wav',
-      state: 'normal',
+      rocketSrc: "./static/audio/shake_gameover.wav",
+      state: "normal",
       isGiftShow: true,
       nowWinItemIdx: undefined,
       trueList: [],
@@ -141,187 +175,188 @@ export default {
       peopleList,
       isFull: false,
       historyWinDic: {}
-    }
+    };
   },
-  async created () {
-    let that = this
+  async created() {
+    let that = this;
     if (isOnline) {
       let configResult = (await axios({
-        url: api.api_v1.get_config + '/' + encodeURIComponent(projectName),
-        method: 'GET',
+        url: api.api_v1.get_config + "/" + encodeURIComponent(projectName),
+        method: "GET",
         headers: {
           project: encodeURIComponent(projectName)
         }
-      })).data
-      if (configResult.msg == 'success') {
-        that.winItems = configResult.data
+      })).data;
+      if (configResult.msg == "success") {
+        that.winItems = configResult.data;
       } else {
-        that.$swal('获取奖品信息失败')
+        that.$swal("获取奖品信息失败");
       }
-      let customersResult = (await axios.get(api.api_v1.get_all_customers + '/' + encodeURIComponent(projectName))).data
+      let customersResult = (await axios.get(
+        api.api_v1.get_all_customers + "/" + encodeURIComponent(projectName)
+      )).data;
       if (customersResult) {
-        let _cutomersResult = customersResult.map((ele) => {
-          let tel = ele[2].toString()
+        let _cutomersResult = customersResult.map(ele => {
+          let tel = ele[2].toString();
           return {
-            'area': ele[0].substr(0, 3),
-            'name': ele[1].substr(0, 3),
-            'tel': tel.substr(0, 3) + '****' + tel.substr(7, 4)
-          }
-        })
-        that.peopleList = _cutomersResult
+            area: ele[0].substr(0, 3),
+            name: ele[1].substr(0, 3),
+            tel: tel.substr(0, 3) + "****" + tel.substr(7, 4)
+          };
+        });
+        that.peopleList = _cutomersResult;
       } else {
-        that.$swal('获取客户名单失败')
+        that.$swal("获取客户名单失败");
       }
     } else {
-      that.peopleList = that.peopleList.map((ele) => {
+      that.peopleList = that.peopleList.map(ele => {
         // console.log(ele)
         return {
-          'area': ele['area'].substr(0, 3),
-          'name': ele['name'].substr(0, 3),
-          'tel': ele['tel'].substr(0, 3) + '****' + ele['tel'].substr(7, 4)
-        }
-      })
+          area: ele["area"].substr(0, 3),
+          name: ele["name"].substr(0, 3),
+          tel: ele["tel"].substr(0, 3) + "****" + ele["tel"].substr(7, 4)
+        };
+      });
     }
   },
   methods: {
-    bgGo () {
+    bgGo() {
       if (this.isBgWav) {
-        document.getElementById('bg-wav').pause()
+        document.getElementById("bg-wav").pause();
       } else {
-        document.getElementById('bg-wav').play()
+        document.getElementById("bg-wav").play();
       }
-      this.isBgWav = !this.isBgWav
+      this.isBgWav = !this.isBgWav;
     },
-    rocketGo () {
+    rocketGo() {
       if (this.isBgWav) {
-        window.document.getElementById('rocket-wav').play()
+        window.document.getElementById("rocket-wav").play();
       }
     },
-    toLottert () {
-      let that = this
-      that.state = 'roll'
+    toLottert() {
+      let that = this;
+      that.state = "roll";
     },
-    giftShow () {
-      let that = this
-      that.isGiftShow = !that.isGiftShow
+    giftShow() {
+      let that = this;
+      that.isGiftShow = !that.isGiftShow;
     },
-    changeWinItem (idx) {
-      let that = this
-      console.log(that.nowWinItemIdx)
+    changeWinItem(idx) {
+      let that = this;
+      console.log(that.nowWinItemIdx);
       if (that.nowWinItemIdx == idx) {
-        that.isGiftShow = true
+        that.isGiftShow = true;
       } else {
-        that.isGiftShow = false
+        that.isGiftShow = false;
       }
-      that.nowWinItemIdx = idx
-      console.log(that.nowWinItemIdx)
+      that.nowWinItemIdx = idx;
+      console.log(that.nowWinItemIdx);
     },
     // 抽奖函数
-    randomTrueDic (config) {
-      let that = this
-      let peopleList = that.peopleList
-      let len = peopleList.length
-      let trueDic = {}
-      let winPeopleCount = 20
+    randomTrueDic(config) {
+      let that = this;
+      let peopleList = that.peopleList;
+      let len = peopleList.length;
+      let trueDic = {};
+      let winPeopleCount = 20;
       if (that.nowWinItemIdx) {
-        let winItemInfo = that.winItems[that.nowWinItemIdx]
-        winPeopleCount = winItemInfo.per_num
+        let winItemInfo = that.winItems[that.nowWinItemIdx];
+        winPeopleCount = winItemInfo.per_num;
       } else {
-        window.clearInterval(interV)
-        that.$swal('未选择奖品')
-        return
+        window.clearInterval(interV);
+        that.$swal("未选择奖品");
+        return;
       }
-      let maxI = len < winPeopleCount ? len : winPeopleCount
-      that.trueList = []
+      let maxI = len < winPeopleCount ? len : winPeopleCount;
+      that.trueList = [];
       for (let i = 0; i < maxI; i++) {
-        let randomNum = (Math.random() * len) | 0
+        let randomNum = (Math.random() * len) | 0;
         if (!trueDic[randomNum]) {
-          trueDic[randomNum] = true
-          peopleList[randomNum].idx = randomNum
-          that.trueList.push(peopleList[randomNum])
+          trueDic[randomNum] = true;
+          peopleList[randomNum].idx = randomNum;
+          that.trueList.push(peopleList[randomNum]);
         } else {
-          i--
+          i--;
         }
       }
     },
     // 开始循环运行抽奖函数
-    startLottert () {
+    startLottert() {
       if (!this.canStart) {
         return;
       }
-      let that = this
-      window.clearInterval(interV)
+      let that = this;
+      window.clearInterval(interV);
       if (that.nowWinItemIdx) {
-        let winItemInfo = that.winItems[that.nowWinItemIdx]
-        console.log(winItemInfo)
-        console.log(winItemInfo.total_time)
+        let winItemInfo = that.winItems[that.nowWinItemIdx];
+        console.log(winItemInfo);
+        console.log(winItemInfo.total_time);
         if (winItemInfo._total_time == undefined) {
-          winItemInfo._total_time = winItemInfo.total_time - 1
-          that.state = 'rolling'
+          winItemInfo._total_time = winItemInfo.total_time - 1;
+          that.state = "rolling";
         } else if (winItemInfo._total_time > 0) {
-          winItemInfo._total_time -= 1
-          that.state = 'rolling'
+          winItemInfo._total_time -= 1;
+          that.state = "rolling";
         } else {
-          window.clearInterval(interV)
-          that.$swal('该奖品已抽完')
-          return
+          window.clearInterval(interV);
+          that.$swal("该奖品已抽完");
+          return;
         }
       } else {
-        window.clearInterval(interV)
-        that.$swal('未选择奖品')
-        return
+        window.clearInterval(interV);
+        that.$swal("未选择奖品");
+        return;
       }
       interV = window.setInterval(() => {
-        that.randomTrueDic()
-      }, 50)
+        that.randomTrueDic();
+      }, 50);
       // console.log("开始抽奖", "interV:", interV);
     },
-    clear () {
-      let that = this
-      that.trueList = []
-      window.clearInterval(interV)
-      console.log('抽奖已经停止', 'interV:', interV)
+    clear() {
+      let that = this;
+      that.trueList = [];
+      window.clearInterval(interV);
+      console.log("抽奖已经停止", "interV:", interV);
     },
     // 停止抽奖循环
-    async stopLottert () {
-      console.log(!this.canStop, this.isRequest, 'can', 'req')
+    async stopLottert() {
+      console.log(!this.canStop, this.isRequest, "can", "req");
       if (!this.canStop) {
         return;
       }
       if (this.isRequest) {
         return;
       }
-      console.log(!this.canStop, this.isRequest, 'can', 'req', 'in')
-      let that = this
-      let winResult = {}
+      console.log(!this.canStop, this.isRequest, "can", "req", "in");
+      let that = this;
+      let winResult = {};
       // try {
-      this.isRequest = true
+      this.isRequest = true;
       if (isOnline) {
         winResult = (await axios({
-          url: api.api_v1.lottery_draw + '/' + that.nowWinItemIdx.replace('r', ''),
-          method: 'GET',
+          url:
+            api.api_v1.lottery_draw + "/" + that.nowWinItemIdx.replace("r", ""),
+          method: "GET",
           headers: {
             project: encodeURIComponent(projectName)
           }
-        })).data
-        this.isRequest = false
+        })).data;
       } else {
-        let rNum = that.nowWinItemIdx
-        console.log(that.winItems[rNum], rNum)
-        let per_num = that.winItems[rNum].per_num
-        winResult.data = []
+        let rNum = that.nowWinItemIdx;
+        console.log(that.winItems[rNum], rNum);
+        let per_num = that.winItems[rNum].per_num;
+        winResult.data = [];
 
         for (let i = 0; i < per_num; i++) {
-          let idx = Math.random() * localWinPeople[rNum].length | 0
-          let b = localWinPeople[rNum].splice(idx, 1)
-          console.log(idx)
-          console.log(JSON.stringify(b[0]))
-          console.log(JSON.stringify(localWinPeople[rNum]))
-          winResult.data.push(b[0])
+          let idx = (Math.random() * localWinPeople[rNum].length) | 0;
+          let b = localWinPeople[rNum].splice(idx, 1);
+          console.log(idx);
+          console.log(JSON.stringify(b[0]));
+          console.log(JSON.stringify(localWinPeople[rNum]));
+          winResult.data.push(b[0]);
         }
-        winResult.remain = localWinPeople[rNum].length
-        winResult.msg = 'success'
-        this.isRequest = false
+        winResult.remain = localWinPeople[rNum].length;
+        winResult.msg = "success";
       }
       // } catch(err) {
       //   isRequest = false;
@@ -330,78 +365,91 @@ export default {
       //   that.$swal('网络请求出错')
       //   return;
       // }
-      console.log(winResult)
-      if (winResult.msg == 'success') {
-        window.clearInterval(interV)
-        console.log('抽奖已经停止', 'interV:', interV)
-        console.log(winResult.data)
-        let _trueList = winResult.data.map((ele) => {
-          console.log(ele)
-          let tel = ele[2].toString()
+      console.log(winResult);
+      if (winResult.msg == "success") {
+        window.clearInterval(interV);
+        console.log("抽奖已经停止", "interV:", interV);
+        console.log(winResult.data);
+        let _trueList = winResult.data.map(ele => {
+          console.log(ele);
+          let tel = ele[2].toString();
           return {
-            'area': ele[0],
-            'name': ele[1],
-            'tel': tel.substr(0, 3) + '****' + tel.substr(7, 4)
-          }
-        })
-        that.trueList = _trueList
-        console.log('中奖名单:', winResult.data)
+            area: ele[0],
+            name: ele[1],
+            tel: tel.substr(0, 3) + "****" + tel.substr(7, 4)
+          };
+        });
+        that.trueList = _trueList;
+        console.log("中奖名单:", winResult.data);
         that.historyWinDic[new Date().getTime()] = {
           trueList: JSON.stringify(winResult.data),
           nowWinItemIdx: that.nowWinItemIdx,
           reward: that.winItems[that.nowWinItemIdx].reward
-        }
-        localStorage.setItem('historyWinDic', JSON.stringify(that.historyWinDic))
+        };
+        localStorage.setItem(
+          "historyWinDic",
+          JSON.stringify(that.historyWinDic)
+        );
         setTimeout(() => {
-          that.state = 'win'
-          that.rocketGo()
-        }, 888)
-        let winItemInfo = that.winItems[that.nowWinItemIdx]
-        winItemInfo._total_time = winResult.remain / winItemInfo.per_num
+          that.state = "win";
+          that.rocketGo();
+          that.isRequest = false;
+        }, 888);
+        let winItemInfo = that.winItems[that.nowWinItemIdx];
+        winItemInfo._total_time = winResult.remain / winItemInfo.per_num;
       } else {
-        window.clearInterval(interV)
-        console.log('抽奖已经停止', 'interV:', interV)
-        that.trueList = []
-        console.log(winResult.msg)
-        that.$swal(winResult.msg)
-        that.state = 'roll'
-        let winItemInfo = that.winItems[that.nowWinItemIdx]
-        winItemInfo._total_time = 0
+        window.clearInterval(interV);
+        console.log("抽奖已经停止", "interV:", interV);
+        that.trueList = [];
+        console.log(winResult.msg);
+        that.$swal(winResult.msg);
+        that.state = "roll";
+        that.isRequest = false;
+        let winItemInfo = that.winItems[that.nowWinItemIdx];
+        winItemInfo._total_time = 0;
       }
     },
     // 返回抽奖页面
-    back2Roll () {
-      let that = this
-      that.state = 'roll'
-      that.trueList = []
-    },
-    fullScreen () {
-      if (this.isFull) {
-        exitFullScreen()
-      } else {
-        enterFullScreen()
-      }
-      this.isFull = !this.isFull
-    },
-    async reset () {
+    back2Roll() {
       let that = this;
-      if (confirm('重置之前的抽奖么?')) {
+      that.state = "roll";
+      that.trueList = [];
+    },
+    fullScreen() {
+      if (this.isFull) {
+        exitFullScreen();
+      } else {
+        enterFullScreen();
+      }
+      this.isFull = !this.isFull;
+    },
+    async reset() {
+      let that = this;
+      let swalRes = await that.$swal({
+        type: "warning",
+        title: "重置之前的抽奖么",
+        text: "重置后已中奖名单将无法恢复，请谨慎操作！",
+        showCancelButton: true,
+        cancelButtonText: "取消"
+      });
+      console.log("swalRes", swalRes);
+      if (swalRes && swalRes.value === true) {
         if (isOnline) {
           let resetResult = (await axios({
             url: api.api_v1.reset,
-            method: 'POST',
+            method: "POST",
             data: {
               project: projectName
             }
-          })).data// (await axios.get(api.api_v1.reset)).data || {};
-          if (resetResult.msg.indexOf('reset success') > -1) {
-            that.$swal('重置成功')
-            window.location.reload()
+          })).data; // (await axios.get(api.api_v1.reset)).data || {};
+          if (resetResult.msg.indexOf("reset success") > -1) {
+            that.$swal("重置成功");
+            window.location.reload();
           } else {
-            that.$swal('重置失败' + resetResult.msg || '')
+            that.$swal("重置失败" + resetResult.msg || "");
           }
         } else {
-          window.location.reload()
+          window.location.reload();
         }
       }
     }
@@ -409,20 +457,20 @@ export default {
   props: {
     msg: String
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 html,
 body {
-    font-size: 16px;
+  font-size: 16px;
 }
 * {
-  font-family: '黑体';
+  font-family: "黑体";
 }
 .out-btn-area {
-  opacity: .5;
+  opacity: 0.5;
   /* position: fixed;
   background-color: rgba(255,255,255,.5);
   width: 230px;
@@ -436,13 +484,13 @@ body {
   left: 5px;
   width: 40px;
   height: 40px;
-  background-image: url('../assets/img/icon/bg-wav.png');
+  background-image: url("../assets/img/icon/bg-wav.png");
   background-size: 100% 100%;
   text-shadow: #fff 1px;
   cursor: pointer;
 }
 .wav-stop {
-  background-image: url('../assets/img/icon/bg-wav-stop.png');
+  background-image: url("../assets/img/icon/bg-wav-stop.png");
 }
 .gift-btn-area {
   position: fixed;
@@ -450,7 +498,7 @@ body {
   top: 5px;
   width: 40px;
   height: 40px;
-  background-image: url('../assets/img/icon/gift.png');
+  background-image: url("../assets/img/icon/gift.png");
   background-size: 100% 100%;
   text-shadow: #fff 1px;
   cursor: pointer;
@@ -461,7 +509,7 @@ body {
   top: 105px;
   width: 40px;
   height: 40px;
-  background-image: url('../assets/img/icon/reset.png');
+  background-image: url("../assets/img/icon/reset.png");
   background-size: 100% 100%;
   cursor: pointer;
 }
@@ -471,12 +519,12 @@ body {
   top: 55px;
   width: 40px;
   height: 40px;
-  background-image: url('../assets/img/icon/full-screen.png');
+  background-image: url("../assets/img/icon/full-screen.png");
   background-size: 100% 100%;
   cursor: pointer;
 }
 .small-screen {
-  background-image: url('../assets/img/icon/small-screen.png');
+  background-image: url("../assets/img/icon/small-screen.png");
 }
 .content {
   position: absolute;
@@ -515,10 +563,10 @@ body {
   text-align: left;
   vertical-align: middle;
   color: #fff;
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
-.win-items-area>div {
+.win-items-area > div {
   /* display: inline-block; */
 }
 .win-items-area .win-item {
@@ -537,12 +585,12 @@ body {
   text-shadow: 1px 1px 5px #aa1a3b;
 }
 .win-item p {
-  margin:auto;
+  margin: auto;
 }
 .win-items-area .selected-win-item {
   /* border: red solid 2px;
   border-radius: 18px; */
-  color:#aa1a3b;
+  color: #aa1a3b;
 }
 .win-area {
   position: absolute;
@@ -570,14 +618,14 @@ body {
   cursor: pointer;
 }
 .win-area table {
-    margin: auto;
-    position: absolute;
-    width: 70vh;
-    height: 60%;
-    top: 36%;
-    bottom: 0;
-    left: 0;
-    right: 0;
+  margin: auto;
+  position: absolute;
+  width: 70vh;
+  height: 60%;
+  top: 36%;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 .win-area .win-rocket {
   margin: auto;
@@ -637,7 +685,7 @@ body {
   width: 100%;
   height: 100%;
 }
-#people-list tr{
+#people-list tr {
   width: 100%;
 }
 .people-li {
@@ -725,12 +773,12 @@ body {
   float: right;
   height: 1rem;
   text-align: center;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 /* table * {
   font-size: 0;
 } */
-td{
+td {
   /* border:solid #000000;
   border-width:0px 1px 0px 0px; */
   /* padding:10px 0px; */
@@ -738,7 +786,7 @@ td{
 }
 .linner td {
   border-bottom: 2px solid #000;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 /* table{border:solid #add9c0; border-width:1px 0px 0px 1px;} */
