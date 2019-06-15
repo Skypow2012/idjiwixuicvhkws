@@ -18,6 +18,14 @@
     background-color: #eeeeee;
 }
 
+.lottery-table,
+.win-list {
+    width: 100%;
+    max-width: 1500px;
+    min-width: 600px;
+    font-size: 1.5rem;
+}
+
 .lottery-table th,
 .lottery-table td,
 .win-list th,
@@ -30,11 +38,11 @@
 .win-list th {
     border-bottom: 1px solid #000;
 }
-.win-list {
+/* .win-list {
     max-height: 250px;
     overflow: auto;
     display: inline-block;
-}
+} */
 .remove-lottery-btn:hover,
 .add-lottery-btn:hover {
     cursor: pointer;
@@ -69,9 +77,10 @@
 }
 .item-title {
     display: inline-block;
-    font-size: 2rem;
+    color: #888;
+    font-size: 1.5rem;
     height: 2rem;
-    min-width: 10rem;
+    min-width: 8rem;
     margin-top: 1rem;
     margin-bottom: .5rem;
 }

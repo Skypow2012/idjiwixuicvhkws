@@ -709,7 +709,7 @@ body {
 }
 /* @font-face {
   font-family: FZLTCHJW;
-  src: url("./font/FZLTCHJW.TTF")
+  src: url("../assets/font/FZLTCHJW.TTF")
 } */
 .win-area #people-list {
   margin-top: 0;

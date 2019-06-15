@@ -1,100 +1,128 @@
 <template>
   <div class='content detail-box'>
-    <div class="title-bar">
-      <span>{{projectName}}</span>
-      <el-button style="float:right;margin:0 10px" @click.native="backToMain">返回主页</el-button>
-      <el-button style="float:right;margin:0 10px" @click.native="toLotteryPage">去活动现场</el-button>
-    </div>
-    <div>
-      <div class="files-area">
-        <div :class="fileDic.className" v-for="(fileDic, idx) in fileDics" :key="idx">
-          <span style="font-family:Helvetica Neue" class="item-title">{{fileDic.for}}：</span>
-          <el-upload
-            ref="upload"
-            class="upload-item"
-            :action="action"
-            :limit="limit"
-            :headers="getHeaders(idx)"
-            :on-change="(file, fileList)=>{handleChange(file, fileList, idx)}"
+    <el-container style="height: 100%;width:100%;display: inline-block;position: absolute;">
+      <el-header style="background-color:#fff">
+        <div class="title-bar">
+          <span>{{projectName}}</span>
+          <el-button style="float:right;margin:0 10px" @click.native="backToMain">返回主页</el-button>
+          <el-button style="float:right;margin:0 10px" @click.native="toLotteryPage">去活动现场</el-button>
+        </div>
+      </el-header>
+      <el-container style="height:calc(100% - 60px)">
+        <el-aside width="200px" style="background-color:#f5f5f5;">
+          <el-menu
+            :default-active="menuIdx"
+            style="background-color:#f5f5f5;min-width:666px;"
+            class="el-menu-vertical-demo"
+            @select="menuSelect">
+            <el-menu-item index="1">
+              <i class="el-icon-menu"></i>
+              <span slot="title">设置</span>
+            </el-menu-item>
+            <el-menu-item index="2">
+              <i class="el-icon-setting"></i>
+              <span slot="title">活动配置</span>
+            </el-menu-item>
+            <el-menu-item index="3">
+              <i class="el-icon-search"></i>
+              <span slot="title">中奖名单</span>
+            </el-menu-item>
+          </el-menu>
+        </el-aside>
+        <el-main>
+          <div>
+            <div v-if="menuIdx == 1" class="files-area">
+              <div :class="fileDic.className" v-for="(fileDic, idx) in fileDics" :key="idx">
+                <span style="font-family:Helvetica Neue" class="item-title">{{fileDic.for}}：</span>
+                <el-upload
+                  ref="upload"
+                  class="upload-item"
+                  :action="action"
+                  :limit="limit"
+                  :headers="getHeaders(idx)"
+                  :on-change="(file, fileList)=>{handleChange(file, fileList, idx)}"
 
-            :file-list="fileList"
-            :show-file-list="false"
-            :auto-upload="true"
-          >
-            <el-input
-              slot="trigger"
-              size="small"
-              :placeholder="idx===2?'请用persons.csv':'请用英文名的文件'"
-              v-model="fileDic.fileName"
-              suffix-icon="el-icon-upload"
-            ></el-input>
+                  :file-list="fileList"
+                  :show-file-list="false"
+                  :auto-upload="true"
+                >
+                  <el-input
+                    slot="trigger"
+                    size="small"
+                    :placeholder="idx===2?'请用persons.csv':'请用英文名的文件'"
+                    v-model="fileDic.fileName"
+                    suffix-icon="el-icon-upload"
+                  ></el-input>
 
-            <div v-if="idx===2" class="download-demo-btn" @click="downloadDemo">
-              <el-button>下载示例文件</el-button>
+                  <div v-if="idx===2" class="download-demo-btn" @click="downloadDemo">
+                    <el-button>下载示例文件</el-button>
+                  </div>
+                </el-upload>
+              </div>
             </div>
-          </el-upload>
-        </div>
-      </div>
-      <div class="set-lottery-draw">
-        <span class="item-title">活动配置</span>
-        <table class="lottery-table" cellpadding="0" cellspacing="0" style="white-apace:nowarp">
-          <tr>
-            <th>奖品序号</th>
-            <th>奖品</th>
-            <th>轮次</th>
-            <th>人/次</th>
-          </tr>
-          <tr v-for="(config, idx) in lottery" :key="idx + config.reward">
-            <!-- <td v-for="(_config, _idx) in config" :key="_idx">{{_config}}<td> -->
-            <td>{{idx.replace('r','')}}</td>
-            <td>{{config.reward}}</td>
-            <td>{{config.total_time}}</td>
-            <td>{{config.per_num}}</td>
-            <td class="remove-lottery-btn" @click="removeLottery(idx)">x</td>
-          </tr>
-          <tr>
-            <!-- <td v-for="(_config, _idx) in config" :key="_idx">{{_config}}<td> -->
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td class="add-lottery-btn" @click="addLottery">+</td>
-          </tr>
-        </table>
-      </div>
-      <div class="win-area">
-        <span class="item-title">中奖名单</span>
-        <br/>
-        <div class="limit-input">
-          <el-input v-model="winLimit" placeholder="输入筛选内容" clearable></el-input>
-        </div>
-        <div class="refresh-win-btn" @click="refreshWin">
-          <el-button>刷新</el-button>
-        </div>
-        <div class="download-win-btn" @click="downloadWin">
-          <el-button>下载</el-button>
-        </div>
-        <br/>
-        <table class="win-list" cellpadding="0" cellspacing="0" style="white-apace:nowarp">
-          <tr>
-            <th>奖品序号</th>
-            <th>城市</th>
-            <th>姓名</th>
-            <th>电话</th>
-          </tr>
-          <tr v-for="(winner, index) in winList" :key="index + winner" v-if="winner.indexOf(winLimit)>-1 && index>0">
-            <td>{{winner.split(',')[0]}}</td>
-            <td>{{winner.split(',')[1]}}</td>
-            <td>{{winner.split(',')[2]}}</td>
-            <td>{{winner.split(',')[3]}}</td>
-          </tr>
-        </table>
-      </div>
-      <div style="display:none">
-        <a href id="a">click here to download your file</a>
-        <button onclick="download('file text', 'myfilename.txt', 'text/plain')">Create file</button>
-      </div>
-    </div>
+            <div v-if="menuIdx == 2" class="set-lottery-draw">
+              <span class="item-title">活动配置</span>
+              <table class="lottery-table" cellpadding="0" cellspacing="0" style="white-apace:nowarp">
+                <tr>
+                  <th>奖品序号</th>
+                  <th>奖品</th>
+                  <th>轮次</th>
+                  <th>人/次</th>
+                </tr>
+                <tr v-for="(config, idx) in lottery" :key="idx + config.reward">
+                  <!-- <td v-for="(_config, _idx) in config" :key="_idx">{{_config}}<td> -->
+                  <td>{{idx.replace('r','')}}</td>
+                  <td>{{config.reward}}</td>
+                  <td>{{config.total_time}}</td>
+                  <td>{{config.per_num}}</td>
+                  <td class="remove-lottery-btn" @click="removeLottery(idx)">x</td>
+                </tr>
+                <tr>
+                  <!-- <td v-for="(_config, _idx) in config" :key="_idx">{{_config}}<td> -->
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td class="add-lottery-btn" @click="addLottery">+</td>
+                </tr>
+              </table>
+            </div>
+            <div v-if="menuIdx == 3" class="win-area">
+              <span class="item-title">中奖名单</span>
+              <br/>
+              <div class="limit-input">
+                <el-input v-model="winLimit" placeholder="输入筛选内容" clearable></el-input>
+              </div>
+              <div class="refresh-win-btn" @click="refreshWin">
+                <el-button>刷新</el-button>
+              </div>
+              <div class="download-win-btn" @click="downloadWin">
+                <el-button>下载</el-button>
+              </div>
+              <br/>
+              <table class="win-list" cellpadding="0" cellspacing="0" style="white-apace:nowarp">
+                <tr>
+                  <th>奖品序号</th>
+                  <th>城市</th>
+                  <th>姓名</th>
+                  <th>电话</th>
+                </tr>
+                <tr v-for="(winner, index) in winList" :key="index + winner" v-if="winner.indexOf(winLimit)>-1 && index>0">
+                  <td>{{winner.split(',')[0]}}</td>
+                  <td>{{winner.split(',')[1]}}</td>
+                  <td>{{winner.split(',')[2]}}</td>
+                  <td>{{winner.split(',')[3]}}</td>
+                </tr>
+              </table>
+            </div>
+            <div style="display:none">
+              <a href id="a">click here to download your file</a>
+              <button onclick="download('file text', 'myfilename.txt', 'text/plain')">Create file</button>
+            </div>
+          </div>
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 <script>
@@ -111,6 +139,7 @@ export default {
     return {
       rIdx: 0,
       winLimit: '',
+      menuIdx: '1',
       winList: [],
       lottery: {},
       fileDics: [
@@ -192,6 +221,10 @@ export default {
     }
   },
   methods: {
+    menuSelect(idx) {
+      console.log(idx);
+      this.menuIdx = idx;
+    },
     backToMain() {
       this.$router.push({ path: '/' })
     },
