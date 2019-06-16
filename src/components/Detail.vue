@@ -33,7 +33,7 @@
           <div>
             <div v-if="menuIdx == 1" class="files-area">
               <div :class="fileDic.className" v-for="(fileDic, idx) in fileDics" :key="idx">
-                <span style="font-family:Helvetica Neue" class="item-title">{{fileDic.for}}：</span>
+                <span style="display:block;" class="item-title">{{fileDic.for}}</span>
                 <el-upload
                   ref="upload"
                   class="upload-item"
@@ -97,31 +97,45 @@
             </div>
             <div v-if="menuIdx == 3" class="win-area">
               <span class="item-title">中奖名单</span>
-              <br/>
-              <div class="limit-input">
-                <el-input v-model="winLimit" placeholder="输入筛选内容" clearable></el-input>
+              <div class="limit-box">
+                <div class="limit-input">
+                  <el-input v-model="winLimit" placeholder="输入筛选内容" clearable></el-input>
+                </div>
+                <div class="refresh-win-btn" @click="refreshWin">
+                  <el-button>刷新</el-button>
+                </div>
+                <div class="download-win-btn" @click="downloadWin">
+                  <el-button>下载</el-button>
+                </div>
               </div>
-              <div class="refresh-win-btn" @click="refreshWin">
-                <el-button>刷新</el-button>
-              </div>
-              <div class="download-win-btn" @click="downloadWin">
-                <el-button>下载</el-button>
-              </div>
-              <br/>
-              <table class="win-list" cellpadding="0" cellspacing="0" style="white-apace:nowarp">
-                <tr>
-                  <th>奖品序号</th>
-                  <th>城市</th>
-                  <th>姓名</th>
-                  <th>电话</th>
-                </tr>
-                <tr v-for="(winner, index) in winList" :key="index + winner" v-if="winner.indexOf(winLimit)>-1 && index>0">
-                  <td>{{winner.split(',')[0]}}</td>
-                  <td>{{winner.split(',')[1]}}</td>
-                  <td>{{winner.split(',')[2]}}</td>
-                  <td>{{winner.split(',')[3]}}</td>
-                </tr>
-              </table>
+              
+              <el-table class="lottery-table" :data="winListArr" stripe cellpadding="0" cellspacing="0" style="white-apace:nowarp">
+                <el-table-column
+                  prop="idx"
+                  label="奖品序号"
+                  >
+                </el-table-column>
+                <el-table-column
+                  prop="city"
+                  label="城市"
+                  >
+                </el-table-column>
+                <el-table-column
+                  prop="name"
+                  label="姓名"
+                  >
+                </el-table-column>
+                <el-table-column
+                  prop="phone"
+                  label="电话"
+                  >
+                </el-table-column>
+                <!-- <el-table-column
+                  prop="reward"
+                  label="奖品"
+                  >
+                </el-table-column> -->
+              </el-table>
             </div>
             <div style="display:none">
               <a href id="a">click here to download your file</a>
@@ -140,7 +154,53 @@ const axios = require('axios')
 export default {
   watch: {
     winLimit () {
-      console.log(this.winLimit)
+      let winLimit = this.winLimit;
+      winLimit = winLimit || '';
+      let winList = this.winList;
+      if (!winList) return;
+      let winListArr = [];
+      for (let i = 1; i < winList.length; i++) {
+        let winner = winList[i];
+        if (winner.indexOf(winLimit) === -1) {
+          continue;
+        }
+        let idx = winner.split(',')[0];
+        let reward = '';
+        let lotteryItem = this.lottery['r' + idx];
+        if (lotteryItem) {
+          reward = lotteryItem.reward;
+        }
+        winListArr.push({
+          idx,
+          city: winner.split(',')[1],
+          name: winner.split(',')[2],
+          phone: winner.split(',')[3],
+          reward,
+        })
+      }
+      this.winListArr = winListArr;
+    },
+    winList() {
+      let winList = this.winList;
+      if (!winList) return;
+      let winListArr = [];
+      for (let i = 1; i < winList.length; i++) {
+        let winner = winList[i];
+        let idx = winner.split(',')[0];
+        let reward = '';
+        let lotteryItem = this.lottery['r' + idx];
+        if (lotteryItem) {
+          reward = lotteryItem.reward;
+        }
+        winListArr.push({
+          idx,
+          city: winner.split(',')[1],
+          name: winner.split(',')[2],
+          phone: winner.split(',')[3],
+          reward,
+        })
+      }
+      this.winListArr = winListArr;
     },
     lottery() {
       if (!this.lottery) return;
@@ -161,6 +221,7 @@ export default {
       winLimit: '',
       menuIdx: '1',
       winList: [],
+      winListArr: [],
       lottery: {},
       lotteryArr: [],
       fileDics: [
@@ -360,6 +421,26 @@ export default {
           total_time: totalTime,
           per_num: perNum
         }
+        let personDic = await this.$prompt('有限制么？（此项一般不需填写，例子【{"南宁": [1, [15177988833]]}】）', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          inputPattern: /^.*?$/,
+          inputErrorMessage: '请输入正确的字典'
+        })
+        let person = personDic.value
+        this.$message({
+          type: 'success',
+          message: (msg += '\n【限制】: ' + person + ';')
+        })
+        try {
+          let _person = JSON.parse(person);
+          if (_person) {
+            this.lottery['r' + this.rIdx].person = _person;
+          }
+        } catch(err) {
+          console.log('person err', err)
+        }
+        
         await this.uploadLottery()
       } catch (err) {
         if (err === 'cancel') {

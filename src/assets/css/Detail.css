@@ -17,6 +17,7 @@
     padding: 10px;
     background-color: #eeeeee;
 }
+.win-area,
 .set-lottery-draw {
     max-width: 1500px;
     min-width: 600px;
@@ -64,10 +65,14 @@
     color: #fff;
 }
 
+.limit-box {
+    display: flex;
+    flex-flow: row;
+}
+
 .limit-input {
     display: inline-block;
-    width: calc(100%-20rem);
-    max-width: 30rem;
+    flex: 1;
 }
 .refresh-win-btn,
 .download-win-btn,
