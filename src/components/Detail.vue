@@ -62,30 +62,38 @@
             </div>
             <div v-if="menuIdx == 2" class="set-lottery-draw">
               <span class="item-title">活动配置</span>
-              <table class="lottery-table" cellpadding="0" cellspacing="0" style="white-apace:nowarp">
-                <tr>
-                  <th>奖品序号</th>
-                  <th>奖品</th>
-                  <th>轮次</th>
-                  <th>人/次</th>
-                </tr>
-                <tr v-for="(config, idx) in lottery" :key="idx + config.reward">
-                  <!-- <td v-for="(_config, _idx) in config" :key="_idx">{{_config}}<td> -->
-                  <td>{{idx.replace('r','')}}</td>
-                  <td>{{config.reward}}</td>
-                  <td>{{config.total_time}}</td>
-                  <td>{{config.per_num}}</td>
-                  <td class="remove-lottery-btn" @click="removeLottery(idx)">x</td>
-                </tr>
-                <tr>
-                  <!-- <td v-for="(_config, _idx) in config" :key="_idx">{{_config}}<td> -->
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td class="add-lottery-btn" @click="addLottery">+</td>
-                </tr>
-              </table>
+              <el-table class="lottery-table" :data="lotteryArr" stripe cellpadding="0" cellspacing="0" style="white-apace:nowarp">
+                <el-table-column
+                  prop="idx"
+                  label="奖品序号"
+                  >
+                </el-table-column>
+                <el-table-column
+                  prop="reward"
+                  label="奖品"
+                  >
+                </el-table-column>
+                <el-table-column
+                  prop="total_time"
+                  label="轮次"
+                  >
+                </el-table-column>
+                <el-table-column
+                  prop="per_num"
+                  label="人/次"
+                  >
+                </el-table-column>
+                
+                <el-table-column label="操作" >
+                  <template slot-scope="scope">
+                    <el-button
+                      size="mini"
+                      type="danger"
+                      @click="removeLottery(scope.row.idx)">删除</el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+              <el-button class="add-lottery-btn" @click="addLottery">添加</el-button>
             </div>
             <div v-if="menuIdx == 3" class="win-area">
               <span class="item-title">中奖名单</span>
@@ -133,6 +141,18 @@ export default {
   watch: {
     winLimit () {
       console.log(this.winLimit)
+    },
+    lottery() {
+      if (!this.lottery) return;
+      let lottery = this.lottery;
+      this.lotteryArr = [];
+      for (let i in lottery) {
+        let idx = Number(i.replace('r', ''));
+        this.lotteryArr[idx] = lottery[i];
+      }
+      for (let i in this.lotteryArr) {
+        this.lotteryArr[i].idx = i;
+      }
     }
   },
   data () {
@@ -142,6 +162,7 @@ export default {
       menuIdx: '1',
       winList: [],
       lottery: {},
+      lotteryArr: [],
       fileDics: [
         {
           for: '背景图',
@@ -174,7 +195,7 @@ export default {
   async created () {
     console.log('show')
     this.projectName = window.localStorage.projectName
-    this.$message('welcome to ' + this.projectName)
+    this.$message('进入 ' + this.projectName + ' 配置页')
     let projectConfig = await axios({
       url: '/admin_config/v1/get_project_config/' + this.projectName,
       method: 'GET',
@@ -229,7 +250,7 @@ export default {
       this.$router.push({ path: '/' })
     },
     toLotteryPage() {
-      window.location.href = '/?projectName=' + this.projectName + '#/lotteryPage';
+      window.location.href = '?projectName=' + this.projectName + '#/lotteryPage';
     },
     async refreshWin () {
       this.$set(this, 'winLimit', '')
@@ -270,9 +291,10 @@ export default {
       console.log(upRes.data)
       this.$set(this, 'lottery', formatedLottery)
     },
-    async removeLottery (idx) {
+    async removeLottery (idx, row) {
+      console.log(row);
       console.log(idx, this.lottery)
-      delete this.lottery[idx]
+      delete this.lottery['r' + idx]
       await this.uploadLottery()
     },
     getHeaders (idx) {
