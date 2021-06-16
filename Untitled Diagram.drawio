@@ -1,1 +1,109 @@
-<mxfile host="app.diagrams.net" modified="2021-06-16T05:26:14.969Z" agent="5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36" etag="GNOqeNABtKIRZ6m_CBVU" version="14.7.9" type="github"><diagram name="Page-1" id="d9b1e647-80fa-b4a2-5024-87a742678bcc">7VpLk+I2EP41HLNlGwzmuDDDbqWyuZBUzkJuQLWy5JElYPLr0y3JPMZsZQ8h+GAO2P2QuvV181kqPBovq9MXw+r9N12CHGVJeRqNX0ZZlk6SAi+keQ+a2SQqdkaU0emiWIu/ISqTqHWihObG0WotrahvlVwrBdze6Jgx+njrttXyNmrNdtBRrDmTXe1forT7qE2T5GL4CmK3j6GLPBo2jH/fGe1UjKe0gmCpWDtNdG32rNTHK9X4dTReGq1tuKtOS5AEa4tYGLf6gfWcsgFlf2ZAPtvClG2AJ8U2mfDNL3GGA5MuwvArUzFX+95Cg2nXdNtYqEfjxXEvLKxrxkl3xG5A3d5WEqUUb7da2VjerCBZSLnUUhs/2ThJimS1in5X+pX/oL6xRn+H1uLRHC+6K21TB2PhdKWKK/8CugJr3tElWuexCLE/0yLKx6tqz6Juf13oqGOxwXbnmS9I400E+yeBzzrAf2Pm0cDP8tfiCcBnkz4hP76D/PujkZ/OlssnID/uVc9PumTj5OOhz5aTJ0Cf96rp8w70awT3wcjn80XyBOSnvWr6aQf53/Xh0chPXubzJyBf9KrnZx3ksySddaDHtdlbeO/C8wHjabr47LFkUuwU6jjCBmhcEFwCt5Wfo6ESZUmx7hb1qpJ5y1LrmFvareC5sv9BsdLsQ7HSbrGK6Z1iTR9RrKJTrN+0gYqG1I2ja+lhwNIJS8Ex5ChbhvNAg+cBsI6srBS1aAQXaocSSBG9Gij9HKQUrqk0iRaq2s8pFBelKJ2iqR19SbbB+ORt29jgd/Q7xSiMFG+OfcK7P8kOSlQ+OLmIIBxQyaoQ/c2JBi9KY2s5coITGC4ss0IrCiklq7hu4wZnXEabjQ8naj+Qvphfd4Wr0C0CmI6lfF5CKOYs5SuM83m34AmKZqA2sAdVgvFYeuVBS1djQuBT97gl0DQkcmz9Swk8KA6/tm4nGLkpSj+0IyqcoTReTxxqCy5UzOOqOWfA/QjualEyG0Z7BGqj8fin2mqFSvjEuJM1CxjSJNstFpdkPCyCCX6VliFhFqAXHuLmXEdXYUpTST/zDSY03dHd2neEh7cG09Q0rfXY4UmOFqkr5UXReFAULo1EwLPmpQ/PsPn6c+4apqy4Qqt6c+DzcGVroRVabak5ktDjSP7m3CzAwhBs/LBuRhLbkEpK7XHB5rKhFAcqYkzc9yr6+8ZhhhPhcEsjNoBoe3cRrqXgll2QhlMtkbQ2+tOP+LFB4sIf1R8aaesF9xMdRtz6z78/vFrClLC1twyYZlFesUpIoqWvIA9AbPohXOTkRz3Hzmf+SI3ZvefY5A41TmaP4Mb5wI0DNw7cOHBjH7gxy3vFje2mdSDHgRwHchzI8bnkOOnXxjHt/r0zkONAjgM5DuT4BHLMe7Zz7P4FO5DjQI4DOQ7k+ARynPVs59h9S2Igx4EcB3IcyPEJ5Fjk+f9HjiheXsj0tqsXXsev/wA=</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2021-06-16T07:04:23.160Z" agent="5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36" etag="F9WSl0YYlQ3lw3zDW0xX" version="14.7.9" type="github">
+  <diagram name="Page-1" id="d9b1e647-80fa-b4a2-5024-87a742678bcc">
+    <mxGraphModel dx="2522" dy="804" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="57fe6abec08f04cb-1" value="投前" style="shape=step;whiteSpace=wrap;html=1;fontSize=28;fillColor=#0080FF;fontColor=#FFFFFF;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="90" y="180" width="170" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="57fe6abec08f04cb-2" value="投中" style="shape=step;whiteSpace=wrap;html=1;fontSize=28;fillColor=#0075E8;fontColor=#FFFFFF;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="460" y="180" width="170" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="57fe6abec08f04cb-3" value="投后" style="shape=step;whiteSpace=wrap;html=1;fontSize=28;fillColor=#0067CC;fontColor=#FFFFFF;strokeColor=none;" parent="1" vertex="1">
+          <mxGeometry x="810" y="180" width="170" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="57fe6abec08f04cb-7" value="投研平台规划" style="text;html=1;strokeColor=none;fillColor=#61BAFF;align=center;verticalAlign=middle;whiteSpace=wrap;fontSize=54;fontStyle=1;fontColor=#004D99;" parent="1" vertex="1">
+          <mxGeometry x="120" y="110" width="860" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wiMCG6pbvv5NuSlwu-rE-1" target="wiMCG6pbvv5NuSlwu-rE-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-1" value="数据中台" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="290" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wiMCG6pbvv5NuSlwu-rE-2" target="wiMCG6pbvv5NuSlwu-rE-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-2" value="页面工具组件" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="430" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wiMCG6pbvv5NuSlwu-rE-4" target="wiMCG6pbvv5NuSlwu-rE-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-4" value="个人研究中心" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="570" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-6" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="290" width="20" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-7" value="一期规划&lt;br&gt;（半年）" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="-40" y="440" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wiMCG6pbvv5NuSlwu-rE-8" target="wiMCG6pbvv5NuSlwu-rE-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-8" value="知识分享模块" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="710" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wiMCG6pbvv5NuSlwu-rE-10" target="wiMCG6pbvv5NuSlwu-rE-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-10" value="宏、中、微&lt;br&gt;分类" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="850" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wiMCG6pbvv5NuSlwu-rE-12" target="wiMCG6pbvv5NuSlwu-rE-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-12" value="研报管理平台" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="990" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-14" value="Excel插件" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="1130" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-16" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="90" y="690" width="20" height="500" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-17" value="二期规划&lt;br&gt;（半年）" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="-40" y="920" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wiMCG6pbvv5NuSlwu-rE-18" target="wiMCG6pbvv5NuSlwu-rE-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-18" value="风控系统" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="485" y="290" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wiMCG6pbvv5NuSlwu-rE-19" target="wiMCG6pbvv5NuSlwu-rE-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-19" value="舆情预警" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="485" y="430" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wiMCG6pbvv5NuSlwu-rE-21" target="wiMCG6pbvv5NuSlwu-rE-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-21" value="风险统计" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="485" y="570" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-23" value="资金投向" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="485" y="710" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wiMCG6pbvv5NuSlwu-rE-25" target="wiMCG6pbvv5NuSlwu-rE-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-25" value="模拟交易" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="835" y="290" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wiMCG6pbvv5NuSlwu-rE-26" target="wiMCG6pbvv5NuSlwu-rE-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-26" value="策略回测" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="835" y="430" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-28" value="投资组合" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="835" y="570" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
