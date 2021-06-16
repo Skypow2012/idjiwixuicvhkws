@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-06-16T07:04:23.160Z" agent="5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36" etag="F9WSl0YYlQ3lw3zDW0xX" version="14.7.9" type="github">
+<mxfile host="app.diagrams.net" modified="2021-06-16T07:06:16.137Z" agent="5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36" etag="N4_vOKSFnIebAfFMz9b2" version="14.7.9" type="github">
   <diagram name="Page-1" id="d9b1e647-80fa-b4a2-5024-87a742678bcc">
     <mxGraphModel dx="2522" dy="804" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
@@ -100,8 +100,38 @@
         <mxCell id="wiMCG6pbvv5NuSlwu-rE-26" value="策略回测" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
           <mxGeometry x="835" y="430" width="120" height="60" as="geometry" />
         </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-33" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wiMCG6pbvv5NuSlwu-rE-28" target="wiMCG6pbvv5NuSlwu-rE-32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="wiMCG6pbvv5NuSlwu-rE-28" value="投资组合" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
           <mxGeometry x="835" y="570" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-30" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="290" width="20" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-31" value="三期规划&lt;br&gt;半年" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="320" y="510" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-35" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wiMCG6pbvv5NuSlwu-rE-32" target="wiMCG6pbvv5NuSlwu-rE-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-32" value="因子集市" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="835" y="710" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-37" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="wiMCG6pbvv5NuSlwu-rE-34" target="wiMCG6pbvv5NuSlwu-rE-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-34" value="因子分析" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="835" y="850" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-36" value="绩效归因" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="835" y="990" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-38" value="四期规划&lt;br&gt;半年" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" vertex="1" parent="1">
+          <mxGeometry x="680" y="590" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="wiMCG6pbvv5NuSlwu-rE-39" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+          <mxGeometry x="790" y="290" width="20" height="760" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
